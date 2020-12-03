@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import fileUpload from 'express-fileupload';
 const cors = require('cors');
 
 mongoose.connect(
@@ -14,6 +15,27 @@ mongoose.connect(
 const server = express();
 server.use(express.json());
 server.use(cors());
+server.use(fileUpload());
+
+server.post('/upload', (req, res) => {
+  if (req.files === null) {
+    return res.status(400).json({ msg: 'No file uploaded' });
+  } else {
+    const file = req.files.file;
+
+    file.mv(
+      `/Users/tobiasschulz/Development/neuefische/muc-2020-w1/idareyou-project/idareyou-app/src/uploads/${file.name}`,
+      (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send(err);
+        }
+
+        res.json({ fileName: file.name, filePath: `./uploads/${file.name}` });
+      }
+    );
+  }
+});
 
 const Dare = mongoose.model('Dare', { headline: String, infotext: String });
 
