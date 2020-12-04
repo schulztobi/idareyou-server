@@ -3,14 +3,14 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 const cors = require('cors');
 
-mongoose.connect(
-  'mongodb+srv://admin:12345@project0.n3r4a.mongodb.net/idareyou?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  }
-);
+const mongoURI =
+  'mongodb+srv://admin:12345@project0.n3r4a.mongodb.net/idareyou?retryWrites=true&w=majority';
+
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 const server = express();
 server.use(express.json());
@@ -50,7 +50,6 @@ server.get('/dares/:id', (req, res) => {
 
 server.post('/dares', (req, res) => {
   const newDare = req.body;
-  console.log(newDare);
   const dare = new Dare(newDare);
   dare.save().then((dare) => res.json(dare));
 });
