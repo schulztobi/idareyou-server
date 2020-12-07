@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import fileUpload from 'express-fileupload';
-import path, { dirname } from 'path';
 const cors = require('cors');
 
 const mongoURI =
@@ -18,7 +17,7 @@ server.use(express.json());
 server.use(cors());
 server.use(fileUpload());
 
-server.patch('/dares/:id', (req, res) => {
+server.patch('/dares/:id/upload', (req, res) => {
   const { id } = req.params;
   console.log(id);
   if (req.files === null) {
