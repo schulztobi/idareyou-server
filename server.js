@@ -42,11 +42,37 @@ server.patch('/dares/:id/upload', (req, res) => {
   }
 });
 
+const User = mongoose.model('User', {
+  userName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+server.post('/createNewUser', (req, res) => {
+  const newUser = req.body;
+  const user = new User(newUser);
+  user.save().then((user) => res.json(user));
+});
+
+server.get('/login', (req, res) => {
+  User.find().then((user) => res.json(user));
+});
+
 const Dare = mongoose.model('Dare', {
   headline: String,
   infotext: String,
   fileName: String,
   filePath: String,
+  daredUser: String,
 });
 
 server.patch('/dares/:id', (req, res) => {
