@@ -6,8 +6,11 @@ const cors = require('cors');
 import AuthRoute from './routes/auth';
 import DareRoute from './routes/DareRoute';
 import Dare from './models/Dare';
-const mongoURI =
-  'mongodb+srv://admin:12345@project0.n3r4a.mongodb.net/idareyou?retryWrites=true&w=majority';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const mongoURI = process.env.DATABASE_ACCESS;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,

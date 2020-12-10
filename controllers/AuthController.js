@@ -1,6 +1,9 @@
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 //register
 
@@ -51,7 +54,7 @@ const login = (req, res, next) => {
           if (result) {
             let token = jwt.sign(
               { username: user.username, userId: user._id },
-              'verySecretValue',
+              process.env.TOKEN_S,
               {
                 expiresIn: '1h',
               }
