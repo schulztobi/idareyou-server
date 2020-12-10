@@ -2,6 +2,8 @@ import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+//register
+
 const register = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
     if (err) {
@@ -29,6 +31,8 @@ const register = (req, res, next) => {
       });
   });
 };
+
+//login
 
 const login = (req, res, next) => {
   const username = req.body.username;

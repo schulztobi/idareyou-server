@@ -13,6 +13,9 @@ const dareSchema = new mongoose.Schema({
   filePath: {
     type: String,
   },
+  image: {
+    type: String,
+  },
   daredUser: {
     type: String,
   },

@@ -5,9 +5,7 @@ import Dare from '../models/Dare';
 const showAllDares = (req, res, next) => {
   Dare.find()
     .then((dares) => {
-      res.json({
-        dares,
-      });
+      res.json(dares);
     })
     .catch((error) => {
       res.json({
@@ -43,6 +41,10 @@ const createDare = (req, res, next) => {
     filePath: req.body.filePath,
     daredUser: req.body.daredUser,
   });
+
+  if (req.file) {
+    dare.image = req.file.path;
+  }
   dare
     .save()
     .then((response) => {
