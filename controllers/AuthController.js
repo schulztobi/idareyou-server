@@ -25,8 +25,9 @@ const register = (req, res, next) => {
         });
       })
       .catch((error) => {
+        console.error(error.message);
         res.json({
-          message: 'An error has occured',
+          message: 'User or email already taken',
         });
       });
   });
@@ -48,9 +49,13 @@ const login = (req, res, next) => {
             });
           }
           if (result) {
-            let token = jwt.sign({ name: user.name }, 'verySecretValue', {
-              expiresIn: '1h',
-            });
+            let token = jwt.sign(
+              { username: user.username, userId: user._id },
+              'verySecretValue',
+              {
+                expiresIn: '1h',
+              }
+            );
             res.json({
               message: 'Login successful!',
               token,
