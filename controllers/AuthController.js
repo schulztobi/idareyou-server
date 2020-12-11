@@ -52,7 +52,7 @@ const login = (req, res, next) => {
             });
           }
           if (result) {
-            let token = jwt.sign(
+            const token = jwt.sign(
               { username: user.username, userId: user._id },
               process.env.TOKEN_S,
               {

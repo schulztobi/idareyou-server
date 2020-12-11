@@ -1,8 +1,9 @@
 import express from 'express';
 const server = express.Router();
 import DareController from '../controllers/DareController';
+import verifyToken from '../middleware/verifyToken';
 
-server.get('/showAllDares', DareController.showAllDares);
+server.get('/showAllDares', verifyToken, DareController.showAllDares);
 server.get('/showSingleDare/:id', DareController.showSingleDareById);
 server.post('/showSingleDare', DareController.showSingleDare);
 server.post('/createDare', DareController.createDare);
