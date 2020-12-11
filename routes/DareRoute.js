@@ -1,12 +1,13 @@
 import express from 'express';
 const server = express.Router();
 import DareController from '../controllers/DareController';
-import upload from '../middleware/upload';
 
 server.get('/showAllDares', DareController.showAllDares);
+server.get('/showSingleDare/:id', DareController.showSingleDareById);
 server.post('/showSingleDare', DareController.showSingleDare);
-server.post('/createDare', upload.single('image'), DareController.createDare);
+server.post('/createDare', DareController.createDare);
 server.post('/updatedDare', DareController.updateDare);
 server.post('/deleteDare', DareController.deleteDare);
+server.delete('/deleteDare/:id', DareController.deleteDareById);
 
 module.exports = server;

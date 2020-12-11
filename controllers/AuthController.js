@@ -15,7 +15,6 @@ const register = (req, res, next) => {
       });
     }
     let user = new User({
-      fullname: req.body.fullname,
       username: req.body.username,
       email: req.body.email,
       password: hashedPass,
@@ -24,7 +23,7 @@ const register = (req, res, next) => {
       .save()
       .then((user) => {
         res.json({
-          message: 'User added successfullly!',
+          message: 'success',
         });
       })
       .catch((error) => {
@@ -39,6 +38,7 @@ const register = (req, res, next) => {
 //login
 
 const login = (req, res, next) => {
+  console.log(req.body);
   const username = req.body.username;
   const password = req.body.password;
 
@@ -60,18 +60,18 @@ const login = (req, res, next) => {
               }
             );
             res.json({
-              message: 'Login successful!',
+              message: 'success',
               token,
             });
           } else {
             res.json({
-              message: 'Password does not match!',
+              message: 'wrongPassword',
             });
           }
         });
       } else {
         res.json({
-          message: 'No User found!',
+          message: 'noUser',
         });
       }
     }

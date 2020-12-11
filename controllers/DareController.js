@@ -14,7 +14,7 @@ const showAllDares = (req, res, next) => {
     });
 };
 
-// Show single Dare
+// Show single Dare with POST requets and the known ID
 
 const showSingleDare = (req, res, next) => {
   let dareID = req.body.dareID;
@@ -23,6 +23,21 @@ const showSingleDare = (req, res, next) => {
       res.json({
         dare,
       });
+    })
+    .catch((error) => {
+      res.json({
+        message: 'An error has occured!',
+      });
+    });
+};
+
+// Show single Dare by ID with GET request
+
+const showSingleDareById = (req, res) => {
+  const { id } = req.params;
+  Dare.find({ _id: id })
+    .then((dare) => {
+      res.json(dare);
     })
     .catch((error) => {
       res.json({
@@ -42,9 +57,11 @@ const createDare = (req, res, next) => {
     daredUser: req.body.daredUser,
   });
 
-  if (req.file) {
-    dare.image = req.file.path;
-  }
+  // File UPLOAD with multer didnt work
+  // if (req.file) {
+  //   image = req.file.path;
+  // }
+
   dare
     .save()
     .then((response) => {
@@ -58,6 +75,14 @@ const createDare = (req, res, next) => {
       });
     });
 };
+
+// Create a Dare v2
+
+// server.post('/dares', (req, res) => {
+//   const newDare = req.body;
+//   const dare = new Dare(newDare);
+//   dare.save().then((dare) => res.json(dare));
+// });
 
 // Update a Dare
 
@@ -92,7 +117,7 @@ const deleteDare = (req, res, next) => {
   Dare.findByIdAndRemove(dareID)
     .then(() =>
       res.json({
-        message: 'Dare deleted succuessfully!',
+        message: 'Dare deleted succussfully!',
       })
     )
     .catch((error) => {
@@ -102,10 +127,27 @@ const deleteDare = (req, res, next) => {
     });
 };
 
+const deleteDareById = (req, res) => {
+  const { id } = req.params;
+  Dare.findByIdAndRemove({ _id: id }).then(() =>
+    res
+      .json({
+        message: 'Dare deleted successfully',
+      })
+      .catch((error) => {
+        res.json({
+          message: 'An error has occured!',
+        });
+      })
+  );
+};
+
 module.exports = {
   showAllDares,
   showSingleDare,
+  showSingleDareById,
   createDare,
   updateDare,
   deleteDare,
+  deleteDareById,
 };

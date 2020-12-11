@@ -19,6 +19,9 @@ const dareSchema = new mongoose.Schema({
   daredUser: {
     type: String,
   },
+  creator: {
+    type: String,
+  },
 });
 
 const Dare = mongoose.model('Dare', dareSchema);
