@@ -18,6 +18,7 @@ mongoose.connect(mongoURI, {
   useUnifiedTopology: true,
   useFindAndModify: false,
   useCreateIndex: true,
+  autoIndex: true,
 });
 
 const server = express();
