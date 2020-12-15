@@ -17,7 +17,7 @@ const dareSchema = new mongoose.Schema({
     type: String,
   },
   daredUser: {
-    type: String,
+    type: Array,
   },
   creator: {
     type: String,
