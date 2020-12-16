@@ -55,6 +55,7 @@ const createDare = (req, res, next) => {
     fileName: req.body.fileName,
     filePath: req.body.filePath,
     daredUser: req.body.daredUser,
+    dareCreator: req.body.dareCreator,
   });
 
   // File UPLOAD with multer didnt work

@@ -19,7 +19,7 @@ const dareSchema = new mongoose.Schema({
   daredUser: {
     type: Array,
   },
-  creator: {
+  dareCreator: {
     type: String,
   },
 });
