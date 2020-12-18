@@ -1,5 +1,7 @@
 import User from '../models/User';
 
+// Show All Users
+
 const showAllUser = (req, res) => {
   User.find()
     .then((users) => {
@@ -18,12 +20,14 @@ const showAllUser = (req, res) => {
     });
 };
 
-const showSingleUser = (req, res) => {
+// Show Single User By ID
+
+const showSingleUserById = (req, res) => {
   const { id } = req.params;
   User.find({ _id: id }).then((user) => res.json(user));
 };
 
 module.exports = {
   showAllUser,
-  showSingleUser,
+  showSingleUserById,
 };

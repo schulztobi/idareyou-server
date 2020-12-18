@@ -1,4 +1,5 @@
 import Dare from '../models/Dare';
+import jwt from 'jsonwebtoken';
 
 // Show the list of Dares
 
@@ -46,6 +47,28 @@ const showSingleDareById = (req, res) => {
     });
 };
 
+// Show all Dares with same dareCreator
+
+const createdDaresByUser = (req, res) => {
+  const token = req.header('auth-token');
+  const decodedToken = jwt.decode(token);
+  const userId = decodedToken.userId;
+  Dare.find({ dareCreator: userId }).then((dare) => {
+    res.json(dare);
+  });
+};
+
+// Show all Dares for daredUser
+
+const showAllDaresToUser = (req, res) => {
+  const token = req.header('auth-token');
+  const decodedToken = jwt.decode(token);
+  const userId = decodedToken.userId;
+  Dare.find({ daredUser: userId }).then((dare) => {
+    res.json(dare);
+  });
+};
+
 // Create a Dare
 
 const createDare = (req, res, next) => {
@@ -57,11 +80,6 @@ const createDare = (req, res, next) => {
     daredUser: req.body.daredUser,
     dareCreator: req.body.dareCreator,
   });
-
-  // File UPLOAD with multer didnt work
-  // if (req.file) {
-  //   image = req.file.path;
-  // }
 
   dare
     .save()
@@ -76,14 +94,6 @@ const createDare = (req, res, next) => {
       });
     });
 };
-
-// Create a Dare v2
-
-// server.post('/dares', (req, res) => {
-//   const newDare = req.body;
-//   const dare = new Dare(newDare);
-//   dare.save().then((dare) => res.json(dare));
-// });
 
 // Update a Dare
 
@@ -147,6 +157,8 @@ module.exports = {
   showAllDares,
   showSingleDare,
   showSingleDareById,
+  createdDaresByUser,
+  showAllDaresToUser,
   createDare,
   updateDare,
   deleteDare,

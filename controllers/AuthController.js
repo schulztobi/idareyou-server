@@ -38,7 +38,6 @@ const register = (req, res, next) => {
 //login
 
 const login = (req, res, next) => {
-  console.log(req.body);
   const username = req.body.username;
   const password = req.body.password;
 

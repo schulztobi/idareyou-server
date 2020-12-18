@@ -4,6 +4,6 @@ import UserController from '../controllers/UserController';
 import verifyToken from '../middleware/verifyToken';
 
 server.get('/user', verifyToken, UserController.showAllUser);
-server.get('/user/:id', verifyToken, UserController.showSingleUser);
+server.get('/user/:id', verifyToken, UserController.showSingleUserById);
 
 module.exports = server;
